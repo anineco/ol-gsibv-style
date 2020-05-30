@@ -161,6 +161,11 @@ const anchors = {
   LC: 'left',        CC: 'center', RC: 'right',
   LB: 'bottom-left', CB: 'bottom', RB: 'bottom-right'
 };
+const offsets = {
+  LT: [0.5, 0.5], CT: [0, 0.5], RT: [-0.5, 0.5],
+  LC: [0.5, 0  ], CC: [0, 0  ], RC: [-0.5, 0  ],
+  LB: [0.5,-0.5], CB: [0,-0.5], RB: [-0.5,-0.5]
+};
 
 const hatch_cache = {};
 
@@ -292,7 +297,7 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
       break;
     case 'symbol':
       if (draw['icon-visible'] && (e = draw['icon-image'])) {
-        const icon = glSprite[e];
+        const icon = glSprite[e] || e.startsWith('滝') && glSprite['滝']; // HACK: sprite for '滝（領域）-20' is missing
         if (icon) {
           opts.image = new Icon({
 //          can't assign to readonly property
@@ -310,7 +315,7 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
         }
       }
       if (draw['text-visible']) {
-        let text = (e = info['text-field']) && identifier(e, feature);
+        let text = (e = info['text-field']) && feature.get(expression(e, feature));
         if (e = info['text-field-round']) {
           if (e == 10) {
             const s = String(Math.round(text * 10));
@@ -345,7 +350,7 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
         let offset = [0, 0];
         if (e = draw['text-offset']) {
           if (e == 'auto') {
-            ; // what should I do?
+            offset = offsets[feature.get('dspPos') ?? 'CC']; // FIXME: is this OK?
           } else if (Array.isArray(e) && typeof e[0] == 'string') {
             offset = expression(e, feature);
           } else {
@@ -360,7 +365,7 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
           } else if (e = info['text-rotate-field']) {
             rotation = feature.get(e) ?? 0;
           }
-          if (vertical) {
+          if (vertical) {   // TODO: vertical writing
             rotation += 90; // alter vertical writing to horizontal
           }
           while (rotation > 180) {
@@ -374,7 +379,6 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
           maxAngle: (draw['text-max-angle'] ?? 45) * Math.PI / 180,
           offsetX: offset[0] * textSize,
           offsetY: offset[1] * textSize,
-          overflow: draw['text-allow-overlap'],
           placement: draw['symbol-placement'] ?? 'point',
           scale: textSize / 16,
           rotateWithView: !(draw['text-rotation-alignment'] == 'map'),
@@ -387,7 +391,7 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
           }),
           stroke: new Stroke({
             color: draw['text-halo-color'] ?? 'rgba(0,0,0,0)',
-            width: (draw['text-halo-width'] ?? 0) * 2
+            width: draw['text-halo-width'] ?? 0
           }),
           padding: new Array(4).fill(draw['text-padding'] ?? 2)
         });
