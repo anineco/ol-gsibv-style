@@ -1,0 +1,38 @@
+{
+  "name": "ol-gsibv-style",
+  "version": "1.0.0",
+  "description": "Use gsimaps style.json with OpenLayers",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "parcel src/index.html",
+    "build": "parcel build -d docs --public-url https://anineco.github.io/ol-gsibv-style src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anineco/ol-gsibv-style.git"
+  },
+  "keywords": [
+    "gsi",
+    "vector",
+    "map",
+    "mapbox",
+    "openlayers",
+    "style",
+    "json"
+  ],
+  "author": "Nyanta Anineco <anineco@nifty.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/anineco/ol-gsibv-style/issues"
+  },
+  "homepage": "https://github.com/anineco/ol-gsibv-style#readme",
+  "devDependencies": {
+    "@babel/core": "^7.10.1",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.1",
+    "cssnano": "^4.1.10"
+  },
+  "dependencies": {
+    "ol": "^6.3.1"
+  }
+}
