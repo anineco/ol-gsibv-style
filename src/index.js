@@ -3,6 +3,7 @@
 //
 import 'ol/ol.css';
 import './lib/Toolbar.css';
+import './lib/Popup.css';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import {fromLonLat} from 'ol/proj';
@@ -19,6 +20,7 @@ import Text from 'ol/style/Text';
 import Style from 'ol/style/Style';
 import {asArray} from 'ol/color';
 import Toolbar from './lib/Toolbar.js';
+import Popup from './lib/Popup.js';
 
 const param = {
   lon: 139.435076, lat: 36.354746, zoom: 15,
@@ -494,6 +496,9 @@ const toolbar = new Toolbar(map, {
 });
 map.addControl(toolbar);
 
+const popup = new Popup('popup');
+map.addOverlay(popup);
+
 const sprite_base = 'https://gsi-cyberjapan.github.io/gsivectortile-mapbox-gl-js/sprite/std';
 
 Promise.all([
@@ -508,7 +513,27 @@ Promise.all([
   map.addLayer(std);
 });
 
-/*
+function getHtml(feature) {
+  const p = feature.getProperties();
+  return '<h2>属性一覧</h2><table><tbody><tr><td>'
+    + Object.keys(p).map(i => i + '</td><td>' + p[i]).join('</td></tr><tr><td>')
+    + '</td></tr></tbody></table>';
+}
+
+map.on('click', function (evt) {
+  const found = map.forEachFeatureAtPixel(
+    evt.pixel,
+    function (feature, layer) {
+      if (feature.getGeometry().getType() !== 'Point') {
+        return false;
+      }
+      popup.setContent(getHtml(feature));
+      return true;
+    }
+  );
+  popup.setPosition(found ? evt.coordinate : undefined);
+});
+
 map.on('pointermove', function (evt) {
   if (evt.dragging) { return; }
   const found = map.forEachFeatureAtPixel(
@@ -519,5 +544,3 @@ map.on('pointermove', function (evt) {
     );
     map.getTargetElement().style.cursor = found ? 'pointer' : '';
 });
-*/
-
