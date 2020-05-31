@@ -10,13 +10,13 @@
 
 ## （参考）比較用の表示
 - 地理院地図Vector＋Mapbox GL JS
--- [市街](https://anineco.github.io/ol-gsibv-style/gsibv-mapbox.html?lat=35.681552&lon=139.765249&zoom=16)
--- [山岳](https://anineco.github.io/ol-gsibv-style/gsibv-mapbox.html?lat=36.627121&lon=137.622669&zoom=15)
--- [湖沼](https://anineco.github.io/ol-gsibv-style/gsibv-mapbox.html?lat=36.931761&lon=139.229934&zoom=15)
+  - [市街](https://anineco.github.io/ol-gsibv-style/gsibv-mapbox.html?lat=35.681552&lon=139.765249&zoom=16)
+  - [山岳](https://anineco.github.io/ol-gsibv-style/gsibv-mapbox.html?lat=36.627121&lon=137.622669&zoom=15)
+  - [湖沼](https://anineco.github.io/ol-gsibv-style/gsibv-mapbox.html?lat=36.931761&lon=139.229934&zoom=15)
 - 地理院地図Vector＋ol-mapbox-style
--- [市街](https://anineco.github.io/ol-gsibv-style/gsibv-olms.html?lat=35.681552&lon=139.765249&zoom=16)
--- [山岳](https://anineco.github.io/ol-gsibv-style/gsibv-olms.html?lat=36.627121&lon=137.622669&zoom=15)
--- [湖沼](https://anineco.github.io/ol-gsibv-style/gsibv-olms.html?lat=36.931761&lon=139.229934&zoom=15)
+  - [市街](https://anineco.github.io/ol-gsibv-style/gsibv-olms.html?lat=35.681552&lon=139.765249&zoom=16)
+  - [山岳](https://anineco.github.io/ol-gsibv-style/gsibv-olms.html?lat=36.627121&lon=137.622669&zoom=15)
+  - [湖沼](https://anineco.github.io/ol-gsibv-style/gsibv-olms.html?lat=36.931761&lon=139.229934&zoom=15)
 
 ## 既知の問題
 - 地図記号や注記がタイル境界でクリッピングされる。
