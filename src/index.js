@@ -496,7 +496,9 @@ const map = new Map({
 });
 
 const toolbar = new Toolbar(map, {
-  layers: [gsibv, std]
+  layers: [gsibv, std],
+  closeLabel: 'GitHub',
+  closeHref: 'https://github.com/anineco/ol-gsibv-style'
 });
 map.addControl(toolbar);
 
