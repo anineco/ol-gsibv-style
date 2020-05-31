@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>GSIBV+MapboxGL</title>
+<link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet">
+<style>
+body { margin: 0; padding: 0; }
+#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
+<script>
+const param = {
+  lon: 138.723460, lat: 35.931374, zoom: 13,
+  url: 'https://anineco.nyanta.jp/share/routemap.geojson'
+};
+location.search.slice(1).split('&').forEach(function (ma) {
+  const s = ma.split('=');
+  if (s[0] === 'url') {
+    param[s[0]] = decodeURIComponent(s[1]);
+  } else if (s[0] in param) {
+    param[s[0]] = Number(s[1]);
+  }
+});
+const map = new mapboxgl.Map({
+  container: 'map',
+  style:'https://gsi-cyberjapan.github.io/gsivectortile-mapbox-gl-js/std.json',
+  center: [param.lon, param.lat],
+  zoom: param.zoom - 1,
+  minZoom: 4,
+  maxZoom: 17
+});
+map.addControl(new mapboxgl.NavigationControl());
+</script>
+</body>
+</html>

@@ -8,6 +8,10 @@
 - 地図記号や注記をクリックすると、属性一覧をポップアップ表示します。
 - 属性一覧で地名のよみがなや、三角点の点名がわかります。
 
+## 比較用表示例
+- 地理院地図Vector＋Mapbox GL JS（[市街](https://anineco.github.io/ol-gsibv-style/gsibv-mapbox.html?lat=35.681552&lon=139.765249&zoom=16)）
+- 地理院地図Vector＋ol-mapbox-style（[市街](https://anineco.github.io/ol-gsibv-style/gsibv-olms.html?lat=35.681552&lon=139.765249&zoom=16)）
+
 ## 既知の問題
 - 地図記号や注記がタイル境界でクリッピングされる。
 
@@ -16,3 +20,8 @@
 - 注記の縦書き表示。
 - 地図の回転に追従した地図記号や注記の回転。
 - 地名の検索。地名データベースの構築。
+
+## 参考リポジトリ
+-- [GitHub gsimaps-vector-experiment](https://github.com/gsi-cyberjapan/gsimaps-vector-experiment)
+-- [GitHub gsivectortile-mapbox-gl-js](https://github.com/gsi-cyberjapan/gsivectortile-mapbox-gl-js)
+-- [GitHub ol-mapbox-style](https://github.com/openlayers/ol-mapbox-style)

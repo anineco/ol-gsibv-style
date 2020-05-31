@@ -2,11 +2,11 @@
   "name": "ol-gsibv-style",
   "version": "1.0.0",
   "description": "Use gsimaps style.json with OpenLayers",
-  "main": "index.html",
+  "main": "index.html gsibv-olms.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/index.html",
-    "build": "parcel build -d docs --public-url https://anineco.github.io/ol-gsibv-style src/index.html"
+    "start": "parcel src/index.html src/gsibv-olms.html",
+    "build": "parcel build -d docs --public-url https://anineco.github.io/ol-gsibv-style src/index.html src/gsibv-olms.html"
   },
   "repository": {
     "type": "git",
@@ -33,6 +33,7 @@
     "cssnano": "^4.1.10"
   },
   "dependencies": {
-    "ol": "^6.3.1"
+    "ol": "^6.3.1",
+    "ol-mapbox-style": "^6.1.1"
   }
 }
