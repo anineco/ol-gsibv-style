@@ -26,6 +26,14 @@ const param = {
   lon: 139.435076, lat: 36.354746, zoom: 15,
   url: 'https://anineco.org/200411/routemap.geojson'
 };
+location.search.slice(1).split('&').forEach(function (ma) {
+  const s = ma.split('=');
+  if (s[0] === 'url') {
+    param[s[0]] = decodeURIComponent(s[1]);
+  } else if (s[0] in param) {
+    param[s[0]] = Number(s[1]);
+  }
+});
 
 function identifier(e, feature) {
   if (Array.isArray(e) && e.length == 2 && e[0] == 'get') {
