@@ -4,6 +4,10 @@ import {fromLonLat} from 'ol/proj';
 import Map from 'ol/Map';
 import ScaleLine from 'ol/control/ScaleLine';
 import {apply} from 'ol-mapbox-style';
+// IE11
+import 'babel-polyfill';
+import "es6-promise/auto";
+import "fetch-polyfill";
 
 const param = {
   lon: 139.435076, lat: 36.354746, zoom: 15,

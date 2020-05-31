@@ -21,6 +21,10 @@ import Style from 'ol/style/Style';
 import {asArray} from 'ol/color';
 import Toolbar from './lib/Toolbar.js';
 import Popup from './lib/Popup.js';
+// IE11
+import 'babel-polyfill';
+import "es6-promise/auto";
+import "fetch-polyfill";
 
 const param = {
   lon: 139.435076, lat: 36.354746, zoom: 15,
@@ -136,12 +140,8 @@ function expression(e, feature) {
   return e;
 }
 
-const glStyle = require('../gsi-binarytile-style-1.json');
+let glStyle;
 const glGroup = {};
-
-for (let group of glStyle.group) {
-  glGroup[group.id] = group;
-}
 
 const glImage = new Image();
 glImage.crossOrigin = 'anonymous';
@@ -516,6 +516,9 @@ map.addOverlay(popup);
 const sprite_base = 'https://gsi-cyberjapan.github.io/gsivectortile-mapbox-gl-js/sprite/std';
 
 Promise.all([
+  fetch('https://maps.gsi.go.jp/vector/data/std.json')
+    .then(response => response.json())
+    .then(result => glStyle = result),
   fetch(sprite_base + '.json')
     .then(response => response.json())
     .then(result => glSprite = result),
@@ -523,6 +526,9 @@ Promise.all([
     .then(response => response.blob())
     .then(result => glImage.src = URL.createObjectURL(result))
 ]).then(() => {
+  for (let group of glStyle.group) {
+    glGroup[group.id] = group;
+  }
   map.addLayer(gsibv);
   map.addLayer(std);
 });
