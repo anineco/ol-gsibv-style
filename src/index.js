@@ -463,7 +463,7 @@ function gsibvSearchItem(styles, item, feature, zoom) {
         }
         const opts = {};
         gsibvSetStyleOpts(opts, x, feature, zoom);
-        opts.zIndex = item.zIndex;
+        opts.zIndex = item.zIndex ?? (opts.text ? 999 : undefined); // FIXME:
         styles.push(new Style(opts));
       }
     }
@@ -494,7 +494,8 @@ const gsibv = new VectorTileLayer({
   maxZoom: 17,
   minZoom: 4,
   style: gsibvStyleFunction,
-  title: 'ベクタ'
+  title: 'ベクタ',
+  declutter: true // mandatory to avoid text clipping at tile edge
 });
 
 const map = new Map({
