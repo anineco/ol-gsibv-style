@@ -20,7 +20,7 @@
   - [湖沼](https://anineco.github.io/ol-gsibv-style/gsibv-olms.html?lat=36.931761&lon=139.229934&zoom=15)
 
 ## 既知の問題
-- 地図記号や注記がタイル境界でクリッピングされる。
+- ~~地図記号や注記がタイル境界でクリッピングされる。~~
 
 ## TODO
 - 処理の軽量化。
