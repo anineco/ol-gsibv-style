@@ -71,8 +71,7 @@ function evaluate(e, feature) {
     case 'any': return e.slice(1).some(x => evaluate(x, feature));
     default:
   }
-  console.error('operator "%s" is not supported', e[0]);
-  return e;
+  throw new Error(`operator "${e[0]}" is not supported`);
 }
 
 function interpolate(x, x0, y0, x1, y1) {
@@ -135,7 +134,7 @@ function expression(e, feature) {
       return expression(e[e.length-1], feature);
     case 'any': return e.slice(1).some(v => expression(v, feature));
     default:
-      console.error('operator "%s" is not supported', e[0]);
+      throw new Error(`operator "${e[0]}" is not supported`);
   }
   return e;
 }
@@ -251,7 +250,7 @@ function hatch(type, color, bgColor) {
       data[idx + 3] = c[3];
       break;
     default:
-      console.error('fill-type "%s" is not supported', type);
+      throw new Error(`fill-type "${type}" is not supported`);
   }
   ctx.putImageData(imageData, 0, 0);
   return hatch_cache[id] = ctx.createPattern(canvas, 'repeat');
@@ -319,7 +318,7 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
             rotateWithView: !(draw['icon-rotation-alignment'] == 'map')
           });
         } else {
-          console.error('missing "%s" in sprite image', e);
+          throw new Error(`missing "${e}" in sprite image`);
         }
       }
       if (draw['text-visible']) {
@@ -374,16 +373,20 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
             rotation = feature.get(e) ?? 0;
           }
           if (vertical) {   // TODO: vertical writing
-            rotation += 90; // alter vertical writing to horizontal
+            if (Math.abs(rotation - 90) < 5 || Math.abs(rotation - 270) < 5) {
+              rotation = 0;
+            } else if (rotation > 90 && rotation < 270) {
+              rotation -= 180;
+            }
           }
-          while (rotation > 180) {
+          if (rotation > 180) {
             rotation -= 360;
           }
           rotation = -rotation;
         }
 
         opts.text = new Text({
-          font: '16px sans-serif', // TODO: use pbf font
+          font: '16px "Noto Sans JP"', // TODO: use pbf font
           maxAngle: (draw['text-max-angle'] ?? 45) * Math.PI / 180,
           offsetX: offset[0] * textSize,
           offsetY: offset[1] * textSize,
@@ -406,8 +409,7 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
       }
       break;
     default:
-      console.error('item type "%s" is not known', item.type);
-      break;
+      throw new Error(`item type "${item.type}" is not known`);
   }
 }
 
