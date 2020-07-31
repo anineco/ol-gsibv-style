@@ -2,14 +2,14 @@
   "name": "ol-gsibv-style",
   "version": "1.0.0",
   "description": "display gsi binary vector map tile with style.json",
-  "main": "index.js gsibv-olms.html",
+  "private": true,
   "directories": {
     "doc": "docs"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/index.html src/gsibv-olms.html",
-    "build": "parcel build -d docs --public-url https://anineco.github.io/ol-gsibv-style src/index.html src/gsibv-olms.html"
+    "start": "parcel src/*.html",
+    "build": "parcel build --public-url . src/*.html"
   },
   "repository": {
     "type": "git",
@@ -30,18 +30,16 @@
   },
   "homepage": "https://github.com/anineco/ol-gsibv-style#readme",
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
     "core-js": "^3.6.5",
-    "es6-promise": "^4.2.8",
-    "fetch-polyfill": "^0.8.2",
-    "ol": "^6.3.1",
-    "ol-mapbox-style": "^6.1.2"
+    "ol": "^6.4.2",
+    "ol-layerswitcher": "^3.6.0",
+    "ol-popup": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.10.5",
-    "@babel/preset-env": "^7.10.4",
+    "@babel/core": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
     "cssnano": "^4.1.10",
-    "metro-react-native-babel-preset": "^0.60.0",
+    "metro-react-native-babel-preset": "^0.61.0",
     "minimist": ">=1.2.5"
   }
 }

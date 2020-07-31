@@ -2,8 +2,9 @@
 // ol-gsibv-style
 //
 import 'ol/ol.css';
-import './lib/Toolbar.css';
-import './lib/Popup.css';
+import 'ol-layerswitcher/src/ol-layerswitcher.css';
+import 'ol-popup/src/ol-popup.css';
+import './index.css';
 import Map from 'ol/Map';
 import View from 'ol/View';
 import {fromLonLat} from 'ol/proj';
@@ -13,18 +14,15 @@ import VectorTile from 'ol/source/VectorTile';
 import MVT from 'ol/format/MVT';
 import TileLayer from 'ol/layer/Tile';
 import XYZ from 'ol/source/XYZ';
+import LayerGroup from 'ol/layer/Group';
 import Fill from 'ol/style/Fill';
 import Stroke from 'ol/style/Stroke';
 import Icon from 'ol/style/Icon';
 import Text from 'ol/style/Text';
 import Style from 'ol/style/Style';
 import {asArray} from 'ol/color';
-import Toolbar from './lib/Toolbar.js';
-import Popup from './lib/Popup.js';
-// IE11
-import 'babel-polyfill';
-import "es6-promise/auto";
-import "fetch-polyfill";
+import LayerSwitcher from 'ol-layerswitcher';
+import Popup from 'ol-popup';
 
 const param = {
   lon: 139.435076, lat: 36.354746, zoom: 15,
@@ -147,12 +145,13 @@ glImage.crossOrigin = 'anonymous';
 let glSprite;
 
 const std = new TileLayer({
-  title: 'ラスタ',
-  visible: false,
   source: new XYZ({
     url: 'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png',
     attributions: '<a href="https://maps.gsi.go.jp/development/ichiran.html">地理院タイル</a>'
   }),
+  title: 'ラスタ',
+  type: 'base',
+  visible: false
 });
 
 const view = new View({
@@ -496,8 +495,14 @@ const gsibv = new VectorTileLayer({
   maxZoom: 17,
   minZoom: 4,
   style: gsibvStyleFunction,
+  declutter: true, // mandatory to avoid text clipping at tile edge
   title: 'ベクタ',
-  declutter: true // mandatory to avoid text clipping at tile edge
+  type: 'base'
+});
+
+const bases = new LayerGroup({
+  layers: [std, gsibv],
+  title: '地図の種類'
 });
 
 const map = new Map({
@@ -505,15 +510,9 @@ const map = new Map({
   view: view,
   controls: defaults()
 });
+map.addControl(new LayerSwitcher());
 
-const toolbar = new Toolbar(map, {
-  layers: [gsibv, std],
-  closeLabel: 'GitHub',
-  closeHref: 'https://github.com/anineco/ol-gsibv-style'
-});
-map.addControl(toolbar);
-
-const popup = new Popup('popup');
+const popup = new Popup();
 map.addOverlay(popup);
 
 const sprite_base = 'https://gsi-cyberjapan.github.io/gsivectortile-mapbox-gl-js/sprite/std';
@@ -532,8 +531,7 @@ Promise.all([
   for (let group of glStyle.group) {
     glGroup[group.id] = group;
   }
-  map.addLayer(gsibv);
-  map.addLayer(std);
+  map.addLayer(bases);
 });
 
 function getHtml(feature) {
@@ -543,18 +541,19 @@ function getHtml(feature) {
     + '</td></tr></tbody></table>';
 }
 
-map.on('click', function (evt) {
+map.on('singleclick', function (evt) {
+  let html;
   const found = map.forEachFeatureAtPixel(
     evt.pixel,
     function (feature, layer) {
       if (feature.getGeometry().getType() !== 'Point') {
         return false;
       }
-      popup.setContent(getHtml(feature));
+      html = getHtml(feature);
       return true;
     }
   );
-  popup.setPosition(found ? evt.coordinate : undefined);
+  popup.show(found ? evt.coordinate : undefined, html);
 });
 
 map.on('pointermove', function (evt) {
