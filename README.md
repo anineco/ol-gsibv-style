@@ -11,9 +11,9 @@
 
 ## （参考）比較用の表示
 - 地理院地図Vector＋Mapbox GL JS
-  - [市街](https://anineco.nyanta.jp/docs/mmap_gsibv.html?lat=35.681552&lon=139.765249&zoom=16)
-  - [山岳](https://anineco.nyanta.jp/docs/mmap_gsibv.html?lat=36.627121&lon=137.622669&zoom=15)
-  - [湖沼](https://anineco.nyanta.jp/docs/mmap_gsibv.html?lat=36.931761&lon=139.229934&zoom=15)
+  - [市街](https://anineco.nyanta.jp/docs/mmap_gsibv.html?lat=35.681552&lon=139.765249&zoom=15)
+  - [山岳](https://anineco.nyanta.jp/docs/mmap_gsibv.html?lat=36.627121&lon=137.622669&zoom=14)
+  - [湖沼](https://anineco.nyanta.jp/docs/mmap_gsibv.html?lat=36.931761&lon=139.229934&zoom=14)
 - 地理院地図Vector＋ol-mapbox-style
   - [市街](https://anineco.nyanta.jp/docs/dist/omap_gsibv.html?lat=35.681552&lon=139.765249&zoom=16)
   - [山岳](https://anineco.nyanta.jp/docs/dist/omap_gsibv.html?lat=36.627121&lon=137.622669&zoom=15)
