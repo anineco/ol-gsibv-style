@@ -3,9 +3,9 @@
 
 ## 表示例
 - HTML src/index.html
-- 市街：https://anineco.nyanta.jp/docs/ol-gsibv-style?lat=35.681552&lon=139.765249&zoom=16
-- 山岳：https://anineco.nyanta.jp/docs/ol-gsibv-style?lat=36.627121&lon=137.622669&zoom=15
-- 湖沼：https://anineco.nyanta.jp/docs/ol-gsibv-style?lat=36.931761&lon=139.229934&zoom=15
+- 市街：https://anineco.nyanta.jp/ol-gsibv-style?lat=35.681552&lon=139.765249&zoom=16
+- 山岳：https://anineco.nyanta.jp/ol-gsibv-style?lat=36.627121&lon=137.622669&zoom=15
+- 湖沼：https://anineco.nyanta.jp/ol-gsibv-style?lat=36.931761&lon=139.229934&zoom=15
 - 地理院地図のラスタ版とベクタ版を切り替えて表示できます。
 - 地図記号や注記をクリックすると、属性一覧をポップアップ表示します。
 - 属性一覧で地名のよみがなや、三角点の点名がわかります。
@@ -13,14 +13,14 @@
 ## （参考）比較用の表示
 - 地理院地図Vector＋Mapbox GL JS
   - HTML [mmap_gsibv.html](https://github.com/anineco/gps-track-maps)
-  - [市街](https://anineco.nyanta.jp/docs/mmap_gsibv.html?lat=35.681552&lon=139.765249&zoom=15)
-  - [山岳](https://anineco.nyanta.jp/docs/mmap_gsibv.html?lat=36.627121&lon=137.622669&zoom=14)
-  - [湖沼](https://anineco.nyanta.jp/docs/mmap_gsibv.html?lat=36.931761&lon=139.229934&zoom=14)
+  - [市街](https://anineco.nyanta.jp/gps-track-maps/mmap_gsibv.html?lat=35.681552&lon=139.765249&zoom=15)
+  - [山岳](https://anineco.nyanta.jp/gps-track-maps/mmap_gsibv.html?lat=36.627121&lon=137.622669&zoom=14)
+  - [湖沼](https://anineco.nyanta.jp/gps-track-maps/mmap_gsibv.html?lat=36.931761&lon=139.229934&zoom=14)
 - 地理院地図Vector＋ol-mapbox-style
   - HTML [omap_gsibv.html](https://github.com/anineco/gps-track-maps)
-  - [市街](https://anineco.nyanta.jp/docs/dist/omap_gsibv.html?lat=35.681552&lon=139.765249&zoom=16)
-  - [山岳](https://anineco.nyanta.jp/docs/dist/omap_gsibv.html?lat=36.627121&lon=137.622669&zoom=15)
-  - [湖沼](https://anineco.nyanta.jp/docs/dist/omap_gsibv.html?lat=36.931761&lon=139.229934&zoom=15)
+  - [市街](https://anineco.nyanta.jp/gps-track-maps/dist/omap_gsibv.html?lat=35.681552&lon=139.765249&zoom=16)
+  - [山岳](https://anineco.nyanta.jp/gps-track-maps/dist/omap_gsibv.html?lat=36.627121&lon=137.622669&zoom=15)
+  - [湖沼](https://anineco.nyanta.jp/gps-track-maps/dist/omap_gsibv.html?lat=36.931761&lon=139.229934&zoom=15)
 
 ## 既知の問題
 - ~~地図記号や注記がタイル境界でクリッピングされる。~~
