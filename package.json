@@ -30,16 +30,13 @@
   },
   "homepage": "https://github.com/anineco/ol-gsibv-style#readme",
   "dependencies": {
-    "core-js": "^3.6.5",
-    "ol": "^6.4.2",
-    "ol-layerswitcher": "^3.6.0",
+    "ol": "^6.4.3",
+    "ol-layerswitcher": "^3.7.0",
     "ol-popup": "^4.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.0",
-    "@babel/preset-env": "^7.11.0",
-    "cssnano": "^4.1.10",
-    "metro-react-native-babel-preset": "^0.61.0",
-    "minimist": ">=1.2.5"
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "cssnano": "^4.1.10"
   }
 }
