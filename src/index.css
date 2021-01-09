@@ -43,6 +43,8 @@ body {
   left: -50px;
   font-size: 14px;
   white-space: nowrap;
+  min-width: auto;
+  line-height: 16px;
 }
 .ol-popup:after, .ol-popup:before {
   top: 100%;
@@ -67,6 +69,7 @@ body {
 }
 .ol-popup-content {
   min-width: auto;
+  overflow-x: visible;
 }
 .ol-popup-closer {
   text-decoration: none;
