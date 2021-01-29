@@ -9,6 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel src/*.html",
+	"prebuild": "rm -f dist/*.js dist/*.css dist/*.map",
     "build": "parcel build --public-url . src/*.html"
   },
   "repository": {
