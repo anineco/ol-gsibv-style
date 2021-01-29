@@ -541,19 +541,18 @@ function getHtml(feature) {
     + '</td></tr></tbody></table>';
 }
 
-map.on('singleclick', function (evt) {
-  let html;
-  const found = map.forEachFeatureAtPixel(
+map.on('click', function (evt) {
+  map.forEachFeatureAtPixel(
     evt.pixel,
     function (feature, layer) {
-      if (feature.getGeometry().getType() !== 'Point') {
+      const geometry = feature.getGeometry();
+      if (geometry.getType() !== 'Point') {
         return false;
       }
-      html = getHtml(feature);
+      popup.show(geometry.getFlatCoordinates(), getHtml(feature));
       return true;
     }
   );
-  popup.show(found ? evt.coordinate : undefined, html);
 });
 
 map.on('pointermove', function (evt) {
