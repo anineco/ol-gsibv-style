@@ -559,9 +559,9 @@ map.on('pointermove', function (evt) {
   if (evt.dragging) { return; }
   const found = map.forEachFeatureAtPixel(
     map.getEventPixel(evt.originalEvent),
-      function (feature, layer) {
-        return feature.getGeometry().getType() === 'Point';
-      }
-    );
-    map.getTargetElement().style.cursor = found ? 'pointer' : '';
+    function (feature, layer) {
+      return feature.getGeometry().getType() === 'Point';
+    }
+  );
+  map.getTargetElement().style.cursor = found ? 'pointer' : '';
 });
