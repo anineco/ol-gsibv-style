@@ -9,8 +9,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "parcel src/*.html",
-	"prebuild": "rm -f dist/*.js dist/*.css dist/*.map",
-    "build": "parcel build --public-url . src/*.html"
+    "prebuild": "rm -f dist/*",
+    "build": "parcel build --public-url . 'src/*.html'"
   },
   "repository": {
     "type": "git",
@@ -36,6 +36,7 @@
     "ol-popup": "^4.0.0"
   },
   "devDependencies": {
-    "cssnano": "^4.1.10"
+    "cssnano": "^5.0.1",
+    "parcel": "next"
   }
 }
