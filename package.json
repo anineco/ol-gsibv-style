@@ -37,6 +37,6 @@
   },
   "devDependencies": {
     "cssnano": "^5.0.1",
-    "parcel": "next"
+    "parcel": "*"
   }
 }
