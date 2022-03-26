@@ -36,7 +36,7 @@
     "ol-popup": "^4.0.0"
   },
   "devDependencies": {
-    "cssnano": "^5.0.17",
+    "cssnano": "^5.1.5",
     "parcel": "*"
   }
 }
