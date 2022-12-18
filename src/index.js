@@ -134,7 +134,7 @@ function expression(e, feature) {
     default:
       throw new Error(`operator "${e[0]}" is not supported`);
   }
-  return e;
+  // return e; // Unreachable code
 }
 
 let glStyle;
@@ -239,7 +239,7 @@ function hatch(type, color, bgColor) {
         data[idx + 3] = c[3];
       }
       break;
-    case 'dot':
+    case 'dot': {
       const x = 1;
       const y = 2;
       const idx = (y * size + x) * 4;
@@ -248,6 +248,7 @@ function hatch(type, color, bgColor) {
       data[idx + 2] = c[2];
       data[idx + 3] = c[3];
       break;
+    }
     default:
       throw new Error(`fill-type "${type}" is not supported`);
   }
@@ -260,7 +261,7 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
   const draw = item.draw ?? empty;
   let e;
   switch (item.type) {
-    case 'fill':
+    case 'fill': {
       const color = draw['fill-color'] ?? '#000000';
       if (draw['fill-visible']) {
         if ((e = draw['fill-style']) && e != 'fill') {
@@ -276,7 +277,8 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
       }
       if (draw['outline-visible']) {
         const width = draw['outline-width'] ?? 1;
-        const lineDash = (e = draw['outline-dasharray']) ? e.map(v => v * width) : null;
+        const e = draw['outline-dasharray'];
+        const lineDash = e ? e.map(v => v * width) : null;
         opts.stroke = new Stroke({
           color: draw['outline-color'] ?? '#000000',
           lineDash: lineDash,
@@ -284,6 +286,7 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
         });
       }
       break;
+    }
     case 'line':
       if (draw['line-visible']) {
         const width = stops(draw['line-width'], zoom) ?? 1;
@@ -322,7 +325,8 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
       }
       if (draw['text-visible']) {
         let text = (e = info['text-field']) && feature.get(expression(e, feature));
-        if (e = info['text-field-round']) {
+        e = info['text-field-round'];
+        if (e) {
           if (e == 10) {
             const s = String(Math.round(text * 10));
             text = s.slice(0, -1) + '.' + s.slice(-1);
@@ -333,20 +337,28 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
         const textSize = Math.round(stops(draw['text-size'], zoom) ?? 16);
 
         let vertical = false;
-        if (e = draw['text-vertical']) {
+        e = draw['text-vertical'];
+        if (e) {
           if (e != 'auto') {
             vertical = e;
-          } else if (e = info['text-vertical-field']) {
-            vertical = feature.get(e) == 2; // vertical writing
+          } else {
+            e = info['text-vertical-field'];
+            if (e) {
+              vertical = feature.get(e) == 2; // vertical writing
+            }
           }
         }
 
         let anchor = 'center';
-        if (e = draw['text-anchor']) {
+        e = draw['text-anchor'];
+        if (e) {
           if (e != 'auto') {
             anchor = e;
-          } else if (e = info['text-anchor-field']) {
-            anchor = anchors[feature.get(e) ?? 'CC'];
+          } else {
+            e = info['text-anchor-field'];
+            if (e) {
+              anchor = anchors[feature.get(e) ?? 'CC'];
+            }
           }
         }
         const i = anchor.indexOf('-');
@@ -354,7 +366,8 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
         const textBaseline = i < 0 ? 'middle' : anchor.substring(0, i);
 
         let offset = [0, 0];
-        if (e = draw['text-offset']) {
+        e = draw['text-offset'];
+        if (e) {
           if (e == 'auto') {
             offset = offsets[feature.get('dspPos') ?? 'CC']; // FIXME: is this OK?
           } else if (Array.isArray(e) && typeof e[0] == 'string') {
@@ -365,11 +378,15 @@ function gsibvSetStyleOpts(opts, item, feature, zoom) {
         }
 
         let rotation = 0;
-        if (e = draw['text-rotate']) {
+        e = draw['text-rotate'];
+        if (e) {
           if (e != 'auto') {
             rotation = e;
-          } else if (e = info['text-rotate-field']) {
-            rotation = feature.get(e) ?? 0;
+          } else {
+            e = info['text-rotate-field'];
+            if (e) {
+              rotation = feature.get(e) ?? 0;
+            }
           }
           if (vertical) {   // TODO: vertical writing
             if (Math.abs(rotation - 90) < 5 || Math.abs(rotation - 270) < 5) {
@@ -490,7 +507,7 @@ const gsibv = new VectorTileLayer({
   source: new VectorTile({
     format: new MVT(),
     url: 'https://cyberjapandata.gsi.go.jp/xyz/experimental_bvmap/{z}/{x}/{y}.pbf',
-    attributions: "<a href='https://maps.gsi.go.jp/vector/' target='_blank'>地理院地図Vector（仮称）</a>"
+    attributions: '<a href="https://maps.gsi.go.jp/vector/" target="_blank">地理院地図Vector（仮称）</a>'
   }),
   maxZoom: 17,
   minZoom: 4,
@@ -544,7 +561,7 @@ function getHtml(feature) {
 map.on('click', function (evt) {
   map.forEachFeatureAtPixel(
     evt.pixel,
-    function (feature, layer) {
+    function (feature, _layer) {
       const geometry = feature.getGeometry();
       if (geometry.getType() !== 'Point') {
         return false;
@@ -559,9 +576,7 @@ map.on('pointermove', function (evt) {
   if (evt.dragging) { return; }
   const found = map.forEachFeatureAtPixel(
     map.getEventPixel(evt.originalEvent),
-    function (feature, layer) {
-      return feature.getGeometry().getType() === 'Point';
-    }
+    (feature, _layer) => feature.getGeometry().getType() === 'Point'
   );
   map.getTargetElement().style.cursor = found ? 'pointer' : '';
 });
