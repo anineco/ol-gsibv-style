@@ -38,7 +38,7 @@
   },
   "devDependencies": {
     "cssnano": "^5.1.14",
-    "eslint": "^8.30.0",
+    "eslint": "^8.31.0",
     "parcel": "*"
   }
 }
