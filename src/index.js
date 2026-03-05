@@ -437,7 +437,7 @@ function gsibvSearchItem(styles, item, feature, zoom) {
   if (!evaluate(item.filter, feature)) {
     return false;
   }
-  for (let id of item.group) {
+  for (const id of item.group) {
     let line_role = null;
     const group = glGroup[id];
     if (!group) {
@@ -447,7 +447,7 @@ function gsibvSearchItem(styles, item, feature, zoom) {
       continue;
     }
     if ('filter' in group) {
-      for (let e of group.filter) {
+      for (const e of group.filter) {
         if (Array.isArray(e) && e.length == 3 && e[1] == 'line-role' && e[2] == 'outline') {
           line_role = (e[0] == '=='); // 'line-role' == 'outline'
         }
@@ -456,7 +456,7 @@ function gsibvSearchItem(styles, item, feature, zoom) {
     if (!evaluate(group['additional-filter'], feature)) {
       continue;
     }
-    for (let layer of item.list) {
+    for (const layer of item.list) {
       if ('source-layer' in layer && layer['source-layer'] != source_layer) {
         continue;
       }
@@ -466,7 +466,7 @@ function gsibvSearchItem(styles, item, feature, zoom) {
       if (!evaluate(layer.filter, feature)) {
         continue;
       }
-      for (let x of layer.list) {
+      for (const x of layer.list) {
         if ('source-layer' in x && x['source-layer'] != source_layer) {
           continue;
         }
@@ -545,7 +545,7 @@ Promise.all([
     .then(response => response.blob())
     .then(result => glImage.src = URL.createObjectURL(result))
 ]).then(() => {
-  for (let group of glStyle.group) {
+  for (const group of glStyle.group) {
     glGroup[group.id] = group;
   }
   map.addLayer(bases);
